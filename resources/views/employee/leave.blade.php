@@ -21,31 +21,32 @@
       </div>
       <div class="modal-body">
 
-        <form action="{{ route('leave.store') }}" method="post" class="" enctype="multipart/form-data">
-            @csrf
-            <div class="box-body">
-                <div class="form-group">
-                    <label for="leave_from">Leave_from</label>
-                    <input type="date" name="from" class="form-control">
-                </div>
+            <form action="{{ route('leave.store') }}" method="post" class="" enctype="multipart/form-data">
+                @csrf
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="leave_from">Leave_from</label>
+                        <input type="date" name="from" class="form-control">
+                    </div>
 
-                <div class="form-group">
-                    <label for="leave_to">Leave_to</label>
-                    <input type="date" name="to"  class="form-control">
-                </div>
+                    <div class="form-group">
+                        <label for="leave_to">Leave_to</label>
+                        <input type="date" name="to"  class="form-control">
+                    </div>
 
-                <div class="form-group">
-                    <label for="reason">Reason</label>
-                    <input type="text" name="reason"  class="form-control " style="height: 100px">
-                </div>
-        </form>
+                    <div class="form-group">
+                        <label for="reason">Reason</label>
+                        <input type="text" name="reason"  class="form-control " style="height: 100px">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            </form>
     </div>
-
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
+      
     </div>
   </div>
 </div>

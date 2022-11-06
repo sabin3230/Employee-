@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Leave;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LeaveController extends Controller
 {
@@ -36,27 +37,28 @@ class LeaveController extends Controller
      */
     public function store(Request $request, Leave $leave)
     {
-        // $leave  = Leave::create([
-        //         'from'=> request('from'),
-        //         'to'=>request('to'),
-        //         'reason' => request('reason'),
+        //     $leave  = Leave::create([
+        //     'from'=> request('from'),
+        //     'to'=>request('to'),
+        //     'reason' => request('reason'),
+        //      'user_id' => auth()->id() 
         //     ]);
             
-        // return redirect()->route('employee.leave')->with('success','Apply Leave has been successfully send.');
+        // return redirect()->route('leave.store')->with('success','Apply Leave has been successfully send.');
 
          $request->validate([
             'from'=> request('from'),
-            'to'=>request('to'),
+            'to'=> request('to'),
             'reason' => request('reason'),
             'status' => request('status'),
-            'user_id' => request('user_id'),
-        ]);
+            'user_id' => auth::user()->id,
         
-        Leave::create($request->post());
+        
+        ]);  
+          dd($request->all());
+            $leave->fill($request->post())->save();
 
-        return redirect()->route('employee.leave')->with('success','Department has been created successfully.');
-
-    
+        return redirect()->route('leave.index')->with('success','Department has been created successfully.');
 
     }   
 

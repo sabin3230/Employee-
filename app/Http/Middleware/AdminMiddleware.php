@@ -20,15 +20,15 @@ class AdminMiddleware
         if(Auth::check()){
             if(Auth::user()->role == '1')
         {
-            // return $next($request);
-            return redirect ('/admin/employee');
+            return $next($request);
         }else{
             return redirect('/home')->with('message', 'Access Denied as you are not Admin!');
 
         }
-        }else{
-            return redirect('/login')->with('message', 'Login to access the website info ');
-        }
+        // }else{
+        //     return redirect('/login')->with('message', 'Login to access the website info ');
+        // }
         return $next($request);
+    }
     }
 }

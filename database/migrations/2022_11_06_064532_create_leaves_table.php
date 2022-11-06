@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('leaves', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('from')->nullable();
-            $table->date('to')->nullable();
-            $table->longText('reason')->nullable();
-            $table->boolean('status');
+            $table->date('to');
+            $table->longText('reason');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');

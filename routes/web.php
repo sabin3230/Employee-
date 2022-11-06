@@ -44,8 +44,11 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
 
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard']);
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+
 Route::get('/leave',[App\Http\Controllers\LeaveController::class, 'index']); 
- Route::post('/leave-store',[App\Http\Controllers\LeaveController::class,'store'])->name('leave.store'); 
+
+// Route::resource('leave', App\Http\Controllers\LeaveController::class);
+Route::post('/leave-store',[App\Http\Controllers\LeaveController::class,'store'])->name('leave.store'); 
 
 
