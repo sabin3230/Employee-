@@ -32,11 +32,22 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/main', [App\Http\Controllers\HomeController::class, 'main'])->name('main');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/main', [App\Http\Controllers\HomeController::class, 'main']);
+
 
 
 Route::middleware(['auth', 'is_admin'])->group(function() {
+
+    
+    Route::get('/maindashboard', [App\Http\Controllers\AdminController::class,'index']);
+     Route::get('/dashboard', [App\Http\Controllers\AdminController::class,'index']);
+
+    Route::get('/leaveadmin', [App\Http\Controllers\AdminController::class,'applyleave'])->name('leavadmin');
+
+    Route::post('/approve/{id}',[App\Http\Controllers\AdminController::class,'approved'])->name('admin.approved');
+    Route::post('/rejected/{id}', [App\Http\Controllers\AdminController::class,'rejected'])->name('admin.rejected');
+
     Route::resource('/department', App\Http\Controllers\DepartmentController::class);
     // Route::resource('/employee', App\Http\Controllers\EmployeeController::class);
      Route::put('/admin/update', [App\Http\Controllers\EmployeeController::class,'update'])->name('admin.update');
@@ -56,3 +67,5 @@ Route::group(['middleware' => ['employee', 'auth']], function() {
 });
 
 
+
+  Route::get('/admin', [App\Http\Controllers\AdminController::class,'admin']);

@@ -1,14 +1,14 @@
 @extends('employee.dashboard')
 @section('content')
 
-    <div class="container" style="margin-top: 90px" >
+    <div class="container" style="margin-top: 30px" >
         <div class="row" >
             <div class="col-md-4">
-                <div class="row" style="height: 700px">
+                <div class="row" style="height: 550px">
                     <div class="col-12 bg-white p-0 px-3 py-3 mb-3">
                         <div class="d-flex flex-column align-items-center " >
                           @if(Auth::user()->image)
-                            <img class="rounded-circle img-fluid mt-5" src="{{asset('images/'.Auth::user()->image)}}" alt="profile_image" style="width: 225px;height: 280px;">
+                            <img class="rounded-circle img-fluid mt-5" src="{{asset('images/'.Auth::user()->image)}}" alt="profile_image" style="width: 220px;height: 200px;">
                           @endif
                             <p class="fw-bold h4 mt-3"> {{ Auth::user()->name }}</p>
                             <p class="text-muted">{{ Auth::user()->department->name }}</p>
@@ -24,7 +24,7 @@
             </div>
             
             <div class="col-md-7 ps-md-4">
-                <div class="row" style="height: 700px">
+                <div class="row" style="height: 550px">
                     <div class="col-12 bg-white px-3 mb-3 pb-3">
                         <div class="row tex-center mt-5">
                             <div class="col md-5 ">

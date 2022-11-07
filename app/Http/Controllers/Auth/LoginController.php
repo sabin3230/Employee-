@@ -51,9 +51,9 @@ class LoginController extends Controller
    
         if(auth()->attempt(array('email' => $inputVal['email'], 'password' => $inputVal['password']))){
             if (auth()->user()->role == 1) {
-                return redirect()->route('main');
+                return redirect()->route('maindashboard');
             }else{
-                return redirect()->route('dashboard');
+                return redirect()->route('profile');
             }
         }else{
             return redirect()->route('login')
