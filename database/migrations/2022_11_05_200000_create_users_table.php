@@ -25,6 +25,8 @@ return new class extends Migration
             $table->date('join_date')->nullable();
             $table->date('dob')->nullable();
             $table->boolean('is_active')->default(0);
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('CASCADE');
             $table->rememberToken();
             $table->timestamps();
         });
