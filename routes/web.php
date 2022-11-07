@@ -28,9 +28,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/main', [App\Http\Controllers\HomeController::class, 'main'])->name('main');
-Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 
 
 Route::middleware(['auth', 'is_admin'])->group(function() {
@@ -39,16 +42,13 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
 });
 
- Route::resource('/department', App\Http\Controllers\DepartmentController::class);
- Route::resource('/employee', App\Http\Controllers\EmployeeController::class);
-
-
-
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/leave',[App\Http\Controllers\LeaveController::class, 'index']); 
 
-// Route::resource('leave', App\Http\Controllers\LeaveController::class);
-Route::post('/leave-store',[App\Http\Controllers\LeaveController::class,'store'])->name('leave.store'); 
+
+Route::group(['middleware' => ['employee', 'auth']], function() {
+    Route::get('/leave',[App\Http\Controllers\LeaveController::class, 'index']); 
+    Route::post('/leave',[App\Http\Controllers\LeaveController::class,'store'])->name('leave.store'); 
+});
 
 

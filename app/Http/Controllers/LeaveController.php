@@ -15,8 +15,8 @@ class LeaveController extends Controller
      */
     public function index()
     {
-         $leave = Leave::orderBy('id','desc')->paginate(5);
-        return view('employee.leave', compact('leave'));
+        $leaves = Leave::where('user_id', Auth::user()->id)->orderBy('id','desc')->paginate(5);
+        return view('employee.leave', compact('leaves'));
     }
 
     /**
@@ -45,21 +45,19 @@ class LeaveController extends Controller
         //     ]);
             
         // return redirect()->route('leave.store')->with('success','Apply Leave has been successfully send.');
-
-         $request->validate([
-            'from'=> request('from'),
-            'to'=> request('to'),
-            'reason' => request('reason'),
-            'status' => request('status'),
-            'user_id' => auth::user()->id,
-        
-        
+        $request->validate([
+            'from'=> 'required|date',
+            'to'=> 'required|date',
+            'reason' => 'required|string',
         ]);  
-          dd($request->all());
-            $leave->fill($request->post())->save();
+        $leave = Leave::create([
+            'from' => $request['from'],
+            'to' => $request['to'],
+            'reason' => $request['reason'],
+            'user_id' => Auth::user()->id
+        ]);
 
-        return redirect()->route('leave.index')->with('success','Department has been created successfully.');
-
+        return redirect()->back();
     }   
 
 

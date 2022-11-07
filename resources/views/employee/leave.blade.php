@@ -69,30 +69,27 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($users as $user)
+                @php($counter = 1)
+                @foreach ($leaves as $leave)
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->address }}</td>
-                        <td>{{ $user->contact }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->password }}</td>
-                        <td>{{ $user->department->name }}</td>
-                        <td>{{ $user->join_date }}</td>
-                        <td>{{ $user->dob }}</td>
-                        <td>{{ $user->is_admin }}</td>
-                        <td>{{ $user->is_active }}</td>
-
-                        <td>
-                            <form action="{{ route('employee.destroy',$user->id) }}" method="Post">
-                                <a class="btn btn-primary" href="{{ route('employee.edit',$user->id) }}">Edit</a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                        <td> {{ $counter }}</td>
+                        <td>{{ $leave->from }}</td>
+                        <td>{{ $leave->to }}</td>
+                        <td>{{ $leave->reason }}</td>
+                        
+                        <td style="
+                            @if($leave->status == 'pending')
+                                background-color:yellow
+                            @elseif($leave->status == 'approved')
+                                background-color:green;color:#fff
+                            @else
+                                background-color:red;color:#fff
+                            @endif">
+                            {{ ucfirst($leave->status) }}
                         </td>
+                        @php($counter++)
                     </tr>
-                    @endforeach --}}
+                @endforeach
             </tbody>
         </table>
 
