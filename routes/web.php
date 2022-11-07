@@ -38,9 +38,12 @@ Route::get('/main', [App\Http\Controllers\HomeController::class, 'main'])->name(
 
 Route::middleware(['auth', 'is_admin'])->group(function() {
     Route::resource('/department', App\Http\Controllers\DepartmentController::class);
-    Route::resource('/employee', App\Http\Controllers\EmployeeController::class);
+    // Route::resource('/employee', App\Http\Controllers\EmployeeController::class);
+     Route::put('/admin/update', [App\Http\Controllers\EmployeeController::class,'update'])->name('admin.update');
+    //   Route::put('/employe', [App\Http\Controllers\EmployeeController::class,'update'])->name('admin.update');
 
 });
+
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
@@ -49,6 +52,7 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard
 Route::group(['middleware' => ['employee', 'auth']], function() {
     Route::get('/leave',[App\Http\Controllers\LeaveController::class, 'index']); 
     Route::post('/leave',[App\Http\Controllers\LeaveController::class,'store'])->name('leave.store'); 
+     Route::put('/employe', [App\Http\Controllers\EmployeeController::class,'update'])->name('employee.update');
 });
 
 

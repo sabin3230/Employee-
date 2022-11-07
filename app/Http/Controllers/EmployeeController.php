@@ -38,20 +38,32 @@ class EmployeeController extends Controller
     */
     public function store(Request $request, User $user)
     {
+
+            
+        $input = $request->all();
+
+            if ($image = $request->file('image')) {
+                    $destinationPath = 'images/';
+                    $employeeImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+                    $image->move($destinationPath, $employeeImage);
+                    $input['image'] = $employeeImage;
+                }
         
             $user  = User::create([
-                'name'=> request('name'),
-                'address'=>request('address'),
-                'contact' => request('contact'),
-                'email'=>request('email'),
-                'password'=>Hash::make($request['password']),
-                'department_id' => request('department_id'),
-                'join_date'=> request('join_date'),
-                'dob' =>request('dob'),
-                'role'=> request('role'),
-                'is_active'=> request('is_active'),
+                'name'=> $input['name'],
+                'image'=> $input['image'],
+                'address'=>$input['address'],
+                'contact' => $input['contact'],
+                'email'=>$input['email'],
+                'password'=>Hash::make($input['password']),
+                'department_id' => $input['department_id'],
+                'join_date'=> $input['join_date'],
+                'dob' =>$input['dob'],
+                'role'=> $input['role'],
+                'is_active'=> $input['is_active'],
 
             ]);
+
             
         return redirect()->route('employee.index')->with('success','Employee has been created successfully.');
     }
@@ -86,26 +98,49 @@ class EmployeeController extends Controller
     * @param  \App\Employee  $employee
     * @return \Illuminate\Http\Response
     */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user, $id)
     {
-        $request->validate([
 
-           
+        dd($request);
+            $request->validate([
             'name' => 'required',
             'address' => 'required',
             'contact' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
+            'join_date' => 'required',
             'department_id' => 'required',
-            'join_date'=> 'required',
             'dob' =>'required',
-            'role'=> 'required',
-            'is_active'=> 'required',
+            'image' =>'required',
+             'role'  => 'required',
+            'is_active' => 'required',
         ]);
-
-        // 
         
-        $user->fill($request->post())->save();
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $userImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $userImage);
+            $input['image'] = $userImage;
+        }
+
+
+        $user = user::find($id);
+        $user->update([
+                'name'=> $input['name'],
+                'image'=> $input['image'],
+                'address'=>$input['address'],
+                'contact' => $input['contact'],
+                'email'=>$input['email'],
+                'password'=>Hash::make($input['password']),
+                'department_id' => $input['department_id'],
+                'join_date'=> $input['join_date'],
+                'dob' =>$input['dob'],
+                'role'=> $input['role'],
+                'is_active'=> $input['is_active'],
+        ]);
+        
 
         return redirect()->route('employee.index')->with('success','Employee Has Been updated successfully');
     

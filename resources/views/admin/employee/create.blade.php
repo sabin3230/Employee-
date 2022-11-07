@@ -25,6 +25,16 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
+                        <strong>Image:</strong>
+                        <input type="file" name="image" class="form-control"  placeholder=" selectphp a image">
+                        @error('image')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
                         <strong>Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder=" Enter Name">
                         @error('name')

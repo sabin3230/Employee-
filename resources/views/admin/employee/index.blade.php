@@ -23,7 +23,7 @@
             <thead>
                 <tr>
                     <th>S.No</th>
-                    {{-- <th>Image</th> --}}
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Address</th>
                     <th>Contact Number</th>
@@ -41,7 +41,7 @@
                 @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
-                        {{-- <td>{{ $user->image }}</td> --}}
+                        <td><img src="{{url('images/')}}/{{$user->image}}" alt="" width="100"></td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->address }}</td>
                         <td>{{ $user->contact }}</td>

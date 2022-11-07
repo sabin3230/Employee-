@@ -23,15 +23,15 @@
             @method('PUT')
              <div class="row">
 
-                {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Image:</strong>
-                        <input type="file" name="image" class="form-control" value="{{ $user->image }}" placeholder=" Enter Name">
+                        <input type="file" name="image" class="form-control" value="" placeholder=" Enter Name">
                         @error('image')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
