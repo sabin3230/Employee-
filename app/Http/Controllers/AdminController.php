@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -89,9 +90,10 @@ class AdminController extends Controller
                 'contact' => $input['contact'],
                 'email'=>$input['email'],
                 'dob' =>$input['dob'],
+                
         ]);
         
-
+       
         return redirect()->route('profile')->with('success','Employee Has Been updated successfully');
   }
 }

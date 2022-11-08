@@ -27,9 +27,10 @@ class UpdateEmail extends Mailable
 
     public function build()
     {
-        return $this->subject()->view('email.updatemail');
+        return $this->from('etst@test.com')
+            ->subject('Notification')
+            ->view('email');
     }
-
     /**
      * Get the message envelope.
      *

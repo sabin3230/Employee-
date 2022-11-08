@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\LeaveController;
+use App\Mail\UpdateEmail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,10 +73,19 @@ Route::group(['middleware' => ['employee', 'auth']], function() {
     Route::get('user/show/{id}',[App\Http\Controllers\AdminController::class, 'profileupdate'])->name('user.show');
 
     Route::put('user/{id}',[App\Http\Controllers\AdminController::class, 'update'])->name('user.update');
-    //  Route::put('/employe/{id}', [App\Http\Controllers\EmployeeController::class,'update'])->name('employee.update');
+
 });
 
 
 
-//   Route::get('/admin', [App\Http\Controllers\AdminController::class,'admin']);
+Route::get('sendmail', function(){
+    $maildata = [
+        'name' => "ekana",
+        'message' => 'updated'
+    ];
+
+    mail::to("saveen.man3230@gmail.com")->send(new UpdateEmail($maildata));
+});
+
+
 

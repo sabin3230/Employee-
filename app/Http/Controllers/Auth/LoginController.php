@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\JsonResponse;
+
 
 class LoginController extends Controller
 {
@@ -58,7 +60,28 @@ class LoginController extends Controller
         }else{
             return redirect()->route('login')
                 ->with('error','Email & Password are incorrect.');
-        }     
+        }  
+        
+        
+    }
+    public function logout(Request $request)
+    {
+        $bd_shown = session()->get('bd_shown');
+        $this->guard()->logout();
+
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        session()->put('bd_shown', $bd_shown);
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 
 

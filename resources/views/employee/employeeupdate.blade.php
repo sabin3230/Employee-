@@ -20,7 +20,7 @@
         @endif
         <form action="{{ route('user.update',Auth::user()->id ) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            {{-- @method('PUT') --}}
+            @method('put')
              <div class="row">
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
