@@ -54,8 +54,9 @@
                         <td>{{ $user->is_active }}</td>
 
                         <td>
+                            <a class="btn btn-primary" href="{{ route('employee.edit',$user->id) }}">Edit</a>
                             <form action="{{ route('employee.destroy',$user->id) }}" method="Post">
-                                <a class="btn btn-primary" href="{{ route('employee.edit',$user->id) }}">Edit</a>
+                                
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>

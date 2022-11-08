@@ -40,9 +40,9 @@ class AdminController extends Controller
     {
       $user = User::orderBy('id','desc')->paginate(5);
         $leave=Leave::all()->count();
-        // $user=User::all()->count();
+        $users=User::all()->count();
         $department=Department::all()->count();
-        return view('admin.maindashboard', compact('leave', 'department', 'user'));
+        return view('admin.maindashboard', compact('leave', 'department', 'user','users'));
     }
         
     
@@ -51,4 +51,47 @@ class AdminController extends Controller
     //     $user = User::orderBy('id','desc')->paginate(5);
     //     return view('admin.maindashboard', compact('user'));
     // // }
+
+     public function profile(){
+        return view('employee.profile');
+    }
+
+    public function profileupdate($id){
+        $user = User::find($id);
+        return view('employee.employeeupdate',compact('user'));
+    }
+
+    public function update(Request $request, User $user, $id)
+    {
+            $request->validate([
+              'image' =>'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'address' => 'required',
+            'contact' => 'required',
+            'dob' => 'required', 
+        ]);
+
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $userImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $userImage);
+            $input['image'] = $userImage;
+        }
+
+        $user = user::find($id);
+        $user->update([
+                'name'=> $input['name'],
+                'image'=> $input['image'],
+                'address'=>$input['address'],
+                'contact' => $input['contact'],
+                'email'=>$input['email'],
+                'dob' =>$input['dob'],
+        ]);
+        
+
+        return redirect()->route('profile')->with('success','Employee Has Been updated successfully');
+  }
 }

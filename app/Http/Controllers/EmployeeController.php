@@ -74,9 +74,10 @@ class EmployeeController extends Controller
     * @param  \App\Employee  $employee
     * @return \Illuminate\Http\Response
     */
-    public function show(User $user)
+    public function show($id)
     {
-       //
+        $user = User::find($id);
+        return view('admin.detaile',compact('user'));
     }
 
     /**
@@ -100,22 +101,17 @@ class EmployeeController extends Controller
     */
     public function update(Request $request, User $user, $id)
     {
-
-        dd($request);
             $request->validate([
             'name' => 'required',
-            'address' => 'required',
-            'contact' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'join_date' => 'required',
-            'department_id' => 'required',
-            'dob' =>'required',
-            'image' =>'required',
-             'role'  => 'required',
-            'is_active' => 'required',
+            'address' => 'required',
+            'contact' => 'required',
+            'join_date' => ' required',
+            'dob' => 'required', 
+            'role' => 'required',
         ]);
-        
+
         $input = $request->all();
 
         if ($image = $request->file('image')) {
@@ -124,7 +120,6 @@ class EmployeeController extends Controller
             $image->move($destinationPath, $userImage);
             $input['image'] = $userImage;
         }
-
 
         $user = user::find($id);
         $user->update([
@@ -143,7 +138,7 @@ class EmployeeController extends Controller
         
 
         return redirect()->route('employee.index')->with('success','Employee Has Been updated successfully');
-    
+
 
     }
 

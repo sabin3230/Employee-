@@ -14,9 +14,9 @@
                             <p class="text-muted">{{ Auth::user()->department->name }}</p>
                             <p class="text-muted mb-3">{{ Auth::user()->address }}</p>
                             <div class="d-flex ">
-                                <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-                                    Profile Update
-                                </button>
+                                <a type="button" href={{route("user.show", Auth::user()->id)}} class="btn btn-primary "  >
+                                    Profile
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -61,8 +61,15 @@
                       </div>  
                     </div>
 
+
                     <div class="row mb-3">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">DATE OF BIRTH</label>
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Join Date</label>
+                      <div class="col-sm-10">
+                      {{ Auth::user()->join_date }}
+                    </div>  
+
+                    <div class="row mb-3">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Date Of Birth</label>
                       <div class="col-sm-10">
                     {{ Auth::user()->dob }}
                       </div>  
@@ -73,66 +80,5 @@
         </div>
     </div>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"> Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-                <div class="modal-body">
-
-                <div class="container mt-2">
-          
-                <form action="{{ route('employee.update') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="row">
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Name:</strong>
-                            <input type="text" name="name" class="form-control" value="{{ auth::user()->name }}" placeholder=" Enter Name">
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Address:</strong>
-                            <input type="text" name="address" class="form-control" value="{{ auth::user()->address}}" placeholder=" Enter a Address">
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Contact Number:</strong>
-                            <input type="text" name="contact" class="form-control" value="{{ auth::user()->contact}}" placeholder=" Enter Contact Number">
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Email:</strong>
-                            <input type="email" name="email" class="form-control" value="{{auth::user()->email}}" placeholder=" Enter Email">
-                        </div>
-                    </div>              
-
-                      <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Birth Date:</strong>
-                                <input type="date" name="dob" class="form-control" value="{{ auth::user()->dob }}"placeholder="Enter Birth Date">
-                            </div>
-                        </div>
-                    
-                    <button type="submit" class="btn btn-primary ml-3 mt-3">Submit</button>
-                </div>
-               </form>
-                  </div>
-      {{-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div> --}}
-    </div>
-  </div>
-</div>
+   
 @endsection 

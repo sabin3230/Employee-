@@ -34,7 +34,5 @@ class HomeController extends Controller
         return view('main');
     }
 
-    public function profile(){
-        return view('employee.profile');
-    }
+   
 }

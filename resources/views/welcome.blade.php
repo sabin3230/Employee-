@@ -1,6 +1,6 @@
 @extends('layouts.app1')
 @section('title')
-    RoyalRide
+    KASTHAMANDAP
 @endsection
 @section('content')
 <section id="hero">

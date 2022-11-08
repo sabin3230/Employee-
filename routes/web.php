@@ -29,7 +29,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+    Route::get('/profile', [App\Http\Controllers\AdminController::class, 'profile'])->name('profile');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
@@ -50,8 +50,13 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
     Route::resource('/department', App\Http\Controllers\DepartmentController::class);
     // Route::resource('/employee', App\Http\Controllers\EmployeeController::class);
-     Route::put('/admin/update', [App\Http\Controllers\EmployeeController::class,'update'])->name('admin.update');
-    //   Route::put('/employe', [App\Http\Controllers\EmployeeController::class,'update'])->name('admin.update');
+    
+    Route::get('/employee', [App\Http\Controllers\EmployeeController::class,'index'])->name('employee.index');
+    Route::get('/employee/create', [App\Http\Controllers\EmployeeController::class,'create'])->name('employee.create');
+    Route::get('employee/show/{id}',[App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
+    Route::get('employee/{id}/edit',[App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
+    Route::post('employee',[App\Http\Controllers\EmployeeController::class, 'store'])->name('employee.store');
+    Route::delete('employee/{id}',[App\Http\Controllers\EmployeeController::class, 'destroy'])->name('employee.destroy');
 
 });
 
@@ -63,9 +68,13 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard
 Route::group(['middleware' => ['employee', 'auth']], function() {
     Route::get('/leave',[App\Http\Controllers\LeaveController::class, 'index']); 
     Route::post('/leave',[App\Http\Controllers\LeaveController::class,'store'])->name('leave.store'); 
-     Route::put('/employe', [App\Http\Controllers\EmployeeController::class,'update'])->name('employee.update');
+    Route::get('user/show/{id}',[App\Http\Controllers\AdminController::class, 'profileupdate'])->name('user.show');
+
+    Route::put('user/{id}',[App\Http\Controllers\AdminController::class, 'update'])->name('user.update');
+    //  Route::put('/employe/{id}', [App\Http\Controllers\EmployeeController::class,'update'])->name('employee.update');
 });
 
 
 
-  Route::get('/admin', [App\Http\Controllers\AdminController::class,'admin']);
+//   Route::get('/admin', [App\Http\Controllers\AdminController::class,'admin']);
+
